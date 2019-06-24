@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/logo.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <title>ElevenX Consultancy Pvt. Ltd.</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  
+  <script>
+     $(document).ready(function(){
+
+      function pxToVh(px){
+        return px*100/window.innerHeight;
+      }
+
+      function vhToPx(vh){
+        return vh*window.innerHeight/100;
+      }
+
+      let downloadModal = true;
+      let count = 0;
+      let countries = 0;
+      let rating = 0;
+      setInterval(function(){
+        downloadModal = true;
+      }, 600000)
+      M.textareaAutoResize($('#textarea1'));
+      $('.modal').modal();
+      $('.sidenav')
+        .sidenav()
+        .on('click tap', 'li a', () => {
+            $('.sidenav').sidenav('close');
+        });
+      $('.carousel.carousel-slider').carousel({
+        fullWidth: true,
+        indicators: true,
+        onCycleTo: function(ele){
+          const target = $(ele).attr('data-img')
+          $('.grey-text')
+              .removeClass('text-darken-3')
+              .addClass('text-darken-1');
+          switch (target){
+            case 'aero10':
+              $('.analyse-data').hide();
+              $('.aero10-text').slideDown('fast')
+              $('.aero10-title')
+                  .removeClass('text-darken-1')
+                  .addClass('text-darken-3')
+              break;
+            case 'aero11':
+              $('.analyse-data').hide();
+              $('.aero11-title')
+                  .removeClass('text-darken-1')
+                  .addClass('text-darken-3')
+              $('.aero11-text').slideDown('fast')
+              break;
+            case 'aero12':
+              $('.analyse-data').hide();
+              $('.aero12-title')
+                  .removeClass('text-darken-1')
+                  .addClass('text-darken-3')
+              $('.aero12-text').slideDown('fast')
+              break;
+            default:
+              alert('other');
+          }
+        }
+      });
+      autoplay();
+      function autoplay() {
+          $('.carousel').carousel('next');
+          setTimeout(autoplay, 4500);
+      }
+
+      $('.prev-btn').on('click', function(){
+        $('.carousel').carousel('prev');
+      })
+      $('.next-btn').on('click', function(){
+        $('.carousel').carousel('next');
+      })
+
+      $('.getapp').click(function(){
+        $('#download-modal').modal('close');
+      })
+    
+      
+      window.onscroll = function() {
+          var doc = document.documentElement;
+          var top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
+          if(window.scrollY <= '100') {
+            $(".scrolltop").css({
+              'display': 'none'
+            });
+          }
+          else {
+            $(".scrolltop").css({
+              'display': 'block'
+            });
+          }
+          if($('.app-stats').length>0){
+            if($('.app-stats').offset().top - window.scrollY < vhToPx(80)){
+              let x = setInterval(function(){
+                  if(count < 5000 ){
+                      count = count + 10;
+                      if(countries < 50) countries = countries + 0.1;
+                      if(rating < 4.9) rating = rating + 0.01
+                      $('#download-count').html(count + "+");
+                      $('#countries-count').html(Math.floor(countries) + "+");
+                      $('#rating').html(`<span>${Math.round(rating*10)/10}&#9734;</span>`);
+                  }else{
+                      clearInterval(x)
+                  }
+               }, 1);
+              }
+            }
+          if(top>1000 && downloadModal == true){
+            $('#download-modal').modal('open');
+            downloadModal = false;
+          }
+        }
+          
+        
+        if($('.app-stats').length>0){
+          if($('.app-stats').offset().top - window.scrollY < vhToPx(80)){
+            let x = setInterval(function(){
+                if(count < 5000 ){
+                    count = count + 10;
+                    if(countries < 50) countries = countries + 0.1;
+                    $('#download-count').html(count + "+");
+                    $('#countries-count').html(Math.floor(countries) + "+");
+                    $('#rating').html(Math.round(rating*10)/10);
+                }else{
+                    clearInterval(x)
+                }
+            }, 1);
+          }
+        }
+ 
+        $('.scrollToHome').click(function(data){
+          $('html, body').animate({
+              scrollTop: 0
+          }, 500);
+        })
+        $('.scrollToHomeAero').click(function(data){
+          $('html, body').animate({
+              scrollTop: 0
+          }, 500);
+        })
+        $('.scrollToAbout').click(function(data){
+          $('html, body').animate({
+              scrollTop: $("#aboutus").offset().top-85
+          }, 500);
+        })
+        $('.scrollToServices').click(function(data){
+          $('html, body').animate({
+              scrollTop: $("#services").offset().top-85
+          }, 500);
+        })
+        $('.scrollToProjects').click(function(data){
+          $('html, body').animate({
+              scrollTop: $("#purpose").offset().top-85
+          }, 500);
+        })
+        $('.scrollToReachUs').click(function(data){
+          $('html, body').animate({
+              scrollTop: $("#reachus").offset().top-85
+          }, 500);
+        })
+
+  });
+  </script>
+
+  <script>
+    $(document).ready(function(){
+
+    });
+  </script>
+
+
+  <script src = 'https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js'></script>
+  <script>
+    new WOW().init();
+  </script>
+</html>
